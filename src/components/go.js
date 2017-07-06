@@ -79,8 +79,8 @@ export default class Go extends Component {
   }
 
   componentDidMount() {
-    SpotifyAuth.loggedIn((res)=>{alert(res);});
-    SpotifyAuth.playURIs(["spotify:track:6HxIUB3fLRS8W3LfYPE8tP", "spotify:track:58s6EuEYJdlb0kO7awm3Vp"], {trackIndex :0, startTime:0},(error)=>{console.log('error',error)});
+    // SpotifyAuth.loggedIn((res)=>{alert(res);});
+    // SpotifyAuth.playURIs(["spotify:track:6HxIUB3fLRS8W3LfYPE8tP", "spotify:track:58s6EuEYJdlb0kO7awm3Vp"], {trackIndex :0, startTime:0},(error)=>{console.log('error',error)});
     let watchID = setInterval(() => {
         navigator.geolocation.getCurrentPosition(
            (pos) => {
@@ -158,7 +158,7 @@ export default class Go extends Component {
             </View>
           </View>
           <View style={styles.text}>
-            <TouchableHighlight onPress={()=>{
+{/*            <TouchableHighlight onPress={()=>{
               SpotifyAuth.isPlaying((res)=>{SpotifyAuth.setIsPlaying(!res, (err)=>{console.log(err)});});
             }
             }>
@@ -166,6 +166,7 @@ export default class Go extends Component {
                 Play/Pause
               </Text>
             </TouchableHighlight>
+*/}
           </View>
 
       </View>
