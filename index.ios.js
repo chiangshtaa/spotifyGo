@@ -18,15 +18,11 @@ class logIn extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.normalText}>
-          React Native Spotify Module Basic Example!
-        </Text>
         <TouchableHighlight style={styles.button} onPress={
                   ()=>{
                     //Start Auth process
                     SpotifyAuth.setClientID('5ba49a1c5e344e2bb5ddc424e380fd49','spotify-go-login://callback',['streaming'],(error)=>{
                       if(!error){
-                        console.log
                         this.props.navigator.replace({component: courseSelect, title: 'Courses '});
                       } else {
                         console.log('error:',error);
@@ -78,7 +74,8 @@ class spotifyModule extends Component {
     return (
       <NavigatorIOS
         initialRoute={{
-          component: courseSelect,
+          component: logIn,
+          title: 'Log In'
         }}
         style={{flex: 1}}
       />

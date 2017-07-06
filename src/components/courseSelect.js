@@ -17,6 +17,9 @@ import Swiper from 'react-native-swiper';
 
 var courses = require('../Coordinates/mapData.js');
 
+const SpotifyAuth = NativeModules.SpotifyAuth;
+
+
 export default class courseSelect extends Component {
   constructor(props) {
     super(props);
@@ -162,7 +165,7 @@ const styles = StyleSheet.create({
     borderColor: 'green',
     borderRadius: 10,
     borderWidth: 10,
-    marginTop: 250, 
+    marginTop: 250,
     alignSelf: 'center'
   }
 
