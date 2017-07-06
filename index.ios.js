@@ -78,7 +78,7 @@ class spotifyModule extends Component {
     return (
       <NavigatorIOS
         initialRoute={{
-          component: logIn,
+          component: courseSelect,
         }}
         style={{flex: 1}}
       />
