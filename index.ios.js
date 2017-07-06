@@ -18,9 +18,6 @@ class logIn extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.normalText}>
-          React Native Spotify Module Basic Example!
-        </Text>
         <TouchableHighlight style={styles.button} onPress={
                   ()=>{
                     //Start Auth process
@@ -79,6 +76,7 @@ class spotifyModule extends Component {
       <NavigatorIOS
         initialRoute={{
           component: logIn,
+          title: 'Log In'
         }}
         style={{flex: 1}}
       />

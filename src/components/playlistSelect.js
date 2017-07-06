@@ -71,4 +71,4 @@ const styles = StyleSheet.create({
 
 });
 
-AppRegistry.registerComponent('spotifyGo', () => courseSelect);
+AppRegistry.registerComponent('spotifyGo', () => playlistSelect);
