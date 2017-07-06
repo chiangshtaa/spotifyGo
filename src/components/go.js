@@ -13,6 +13,8 @@ import MapView from 'react-native-maps';
 import { Stopwatch, Timer } from 'react-native-stopwatch-timer';
 import haversine from 'haversine';
 
+const SpotifyAuth = NativeModules.SpotifyAuth;
+
 const checkpoints = [
     {
       latlng: {
@@ -69,12 +71,6 @@ export default class Go extends Component {
       totalDuration: 90000,
       stopwatchReset: false,
       markers: checkpoints,
-      // initialLatitude: 0,
-      // intialLongitude: 0,
-      // curLatitude: 33.44432,
-      // curLongitude: -123.99393,
-      // initialPosition: 'unknown',
-      // lastPosition: 'unknown',
       currentCheckpoint: 1
     };
 
@@ -83,6 +79,8 @@ export default class Go extends Component {
   }
 
   componentDidMount() {
+    SpotifyAuth.loggedIn((res)=>{alert(res);});
+    SpotifyAuth.playURIs(["spotify:track:6HxIUB3fLRS8W3LfYPE8tP", "spotify:track:58s6EuEYJdlb0kO7awm3Vp"], {trackIndex :0, startTime:0},(error)=>{console.log('error',error)});
     let watchID = setInterval(() => {
         navigator.geolocation.getCurrentPosition(
            (pos) => {
@@ -90,11 +88,14 @@ export default class Go extends Component {
                 latitude: pos.coords.latitude,
                 longitude: pos.coords.longitude
               }
-              if (haversine(checkpoints[this.state.currentCheckpoint].latlng, curPosition, {threshold: 10, unit: 'meter'})) {
+              if (haversine(checkpoints[this.state.currentCheckpoint].latlng, curPosition, {threshold: 15, unit: 'meter'})) {
                 alert('checkpoint reached');
                 this.setState({
                   currentCheckpoint: this.state.currentCheckpoint + 1
                 })
+              }
+              if (this.state.currentCheckpoint === checkpoints.length) {
+                navigator.geolocation.clearWatch(id);
               }
               //if inital position is the same as ending position cancel watchID
            },
@@ -157,9 +158,16 @@ export default class Go extends Component {
             </View>
           </View>
           <View style={styles.text}>
-            <Text>checkpoints: {JSON.stringify(checkpoints[this.state.currentCheckpoint])}</Text>
-            <Text>Current Coordinates: </Text>
+            <TouchableHighlight onPress={()=>{
+              SpotifyAuth.isPlaying((res)=>{SpotifyAuth.setIsPlaying(!res, (err)=>{console.log(err)});});
+            }
+            }>
+              <Text style={styles.normalText}>
+                Play/Pause
+              </Text>
+            </TouchableHighlight>
           </View>
+
       </View>
 
     );

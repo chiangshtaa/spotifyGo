@@ -11,6 +11,9 @@ import {
 } from 'react-native';
 import PlaylistSelect from './playlistSelect.js';
 
+const SpotifyAuth = NativeModules.SpotifyAuth;
+
+
 export default class courseSelect extends Component {
 
   _handleBackPress() {
@@ -22,6 +25,8 @@ export default class courseSelect extends Component {
   }
 
   render() {
+        SpotifyAuth.loggedIn((res)=>{alert(res);});
+
     const nextRoute = {
       component: PlaylistSelect,
       title: 'Select Playlist',
