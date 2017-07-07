@@ -31,14 +31,6 @@ export default class courseSelect extends Component {
         {key: require('../../assets/Sunset.png'), selected: false, coordinates: courses.difficult, description: {level: 'Difficult', length: 8.01, run: 'Sunset Challenge'}}
       ],
       selected: null
-      // choice: null
-      // next: {
-      //   component: PlaylistSelect,
-      //   title: 'Select Playlist',
-      //   passProps: { 
-      //     myProp: this.state.choice 
-      //   }
-      // }
     }
   }
 
@@ -68,8 +60,6 @@ export default class courseSelect extends Component {
         }
       }
     }, () => this.props.navigator.push(this.state.next));
-
-    // this.props.navigator.push(this.state.next);
   }
 
   render() {
@@ -81,7 +71,7 @@ export default class courseSelect extends Component {
         <Swiper showsButtons={false} style={{marginTop: 50}}>
           {this.state.images.map((image, index) => {
             return (
-              <View >
+              <View key={index}>
                 <TouchableHighlight onPress={() => this._handleSelect(index)}>
                   <Image source={image.key} key={index} style={image.selected ? styles.border : {borderRadius: 10, alignSelf: 'center'}} />
                 </TouchableHighlight>
@@ -94,46 +84,10 @@ export default class courseSelect extends Component {
                 <Text style={{alignSelf: 'center'}}>
                   {`Length: ${image.description.length} miles`}
                 </Text>
-{/*                <Text style={{backgroundColor: 'red', color: 'white', alignSelf: 'center', marginTop: 20}}>
-                  Select a route!
-                </Text>*/}
               </View>
               )
           })}
         </Swiper>
-{/*        <View >
-          <Image source={require('../../assets/HackReactor.png')} style={{marginTop: 250, alignSelf: 'center'}}/>
-        </View>
-        <View >
-          <Image source={require('../../assets/AppleCampus.png')} style={{marginTop: 250, alignSelf: 'center'}} />
-        </View>
-        <View >
-          <Image source={require('../../assets/Sunset.png')} style={{marginTop: 250, alignSelf: 'center'}}/>
-        </View>*/}
-      {/*<ScrollView >
-              {this.state.images.map((image, index) => {
-                return (
-                  <View>
-                    <TouchableHighlight onPress={() => this._handleSelect(index)}>
-                      <Image key={index} style={image.selected ? styles.border : {borderRadius: 10, marginTop: 50, alignSelf: 'center'}} source={image.key}/>
-                    </TouchableHighlight>
-                    <Text style={{marginTop: 10, alignSelf: 'center'}}>
-                      {`${image.description.run}`}
-                    </Text>
-                    <Text style={{alignSelf: 'center'}}>
-                      {`Difficulty: ${image.description.level}`}
-                    </Text>
-                    <Text style={{alignSelf: 'center'}}>
-                      {`Length: ${image.description.length} miles`}
-                    </Text>
-                  </View>)
-              })}
-            </ScrollView>*/}
-{/*      <TouchableHighlight onPress={() => this._handleNextPress(nextRoute)}>
-        <Text style={styles.normalText}>
-          Select a route!
-        </Text>
-      </TouchableHighlight>*/}
       </View>
     );
   }
@@ -143,7 +97,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center',
+    // alignItems: 'center',
     backgroundColor: 'black'
   },
   button: {
