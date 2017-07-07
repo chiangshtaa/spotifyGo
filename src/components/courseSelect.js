@@ -63,7 +63,7 @@ export default class courseSelect extends Component {
       next: {
         component: PlaylistSelect,
         title: 'Select Playlist',
-        passProps: { 
+        passProps: {
           myProp: level
         }
       }
