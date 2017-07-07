@@ -81,9 +81,9 @@ export default class courseSelect extends Component {
         <Swiper showsButtons={true}>
           {this.state.images.map((image, index) => {
             return (
-              <View >
+              <View key={index}>
                 <TouchableHighlight onPress={() => this._handleSelect(index)}>
-                  <Image source={image.key} key={index} style={image.selected ? styles.border : {borderRadius: 10, marginTop: 250, alignSelf: 'center'}} />
+                  <Image source={image.key} style={image.selected ? styles.border : {borderRadius: 10, marginTop: 250, alignSelf: 'center'}} />
                 </TouchableHighlight>
                 <Text style={{marginTop: 10, alignSelf: 'center'}}>
                   {`${image.description.run}`}
@@ -143,7 +143,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center',
+    // alignItems: 'center',
     backgroundColor: 'black'
   },
   button: {
