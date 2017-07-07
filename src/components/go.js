@@ -9,8 +9,9 @@ import {
   TouchableHighlight,
   View
 } from 'react-native';
+import TimePiece from './helpers/timePiece.js';
+
 import MapView from 'react-native-maps';
-import { Stopwatch, Timer } from 'react-native-stopwatch-timer';
 import haversine from 'haversine';
 
 const SpotifyAuth = NativeModules.SpotifyAuth;
@@ -18,7 +19,7 @@ const SpotifyAuth = NativeModules.SpotifyAuth;
 const checkpoints = [
     {
       latlng: {
-        latitude: 37.33177,
+        latitude: 37.33137,
         longitude: -122.03078
       },
       title: 'checkpoint 1'
@@ -46,41 +47,31 @@ const checkpoints = [
     },
     {
       latlng: {
-        latitude: 37.330691,
-        longitude: -122.030618
+        latitude: 37.330537,
+        longitude: -122.028886
       },
       title: 'checkpoint 5'
     }
   ]
 
+const songList = ["spotify:track:2RttW7RAu5nOAfq6YFvApB","spotify:track:756CJtQRFSxEx9jV4P9hpA","spotify:track:7J9mBHG4J2eIfDAv5BehKA", "spotify:track:58s6EuEYJdlb0kO7awm3Vp", "spotify:track:2RttW7RAu5nOAfq6YFvApB", "spotify:track:1dNIEtp7AY3oDAKCGg2XkH"];
+
+
 
 export default class Go extends Component {
-
-  // _handleBackPress() {
-  //   this.props.navigator.pop();
-  // }
-
-  // _handleNextPress(nextRoute) {
-  //   this.props.navigator.push(nextRoute);
-  // }
 
   constructor(props) {
     super(props);
     this.state = {
-      stopwatchStart: false,
-      totalDuration: 90000,
-      stopwatchReset: false,
       markers: checkpoints,
-      currentCheckpoint: 1
+      currentCheckpoint: 0,
+      currentPlaylist: ['spotify:track:72Q0FQQo32KJloivv5xge2'],
+      masterPlaylist: songList,
+      currentSong: ''
     };
-
-    this.toggleStopwatch = this.toggleStopwatch.bind(this);
-    this.resetStopwatch = this.resetStopwatch.bind(this);
   }
 
   componentDidMount() {
-    // SpotifyAuth.loggedIn((res)=>{alert(res);});
-    // SpotifyAuth.playURIs(["spotify:track:6HxIUB3fLRS8W3LfYPE8tP", "spotify:track:58s6EuEYJdlb0kO7awm3Vp"], {trackIndex :0, startTime:0},(error)=>{console.log('error',error)});
     let watchID = setInterval(() => {
         navigator.geolocation.getCurrentPosition(
            (pos) => {
@@ -88,38 +79,29 @@ export default class Go extends Component {
                 latitude: pos.coords.latitude,
                 longitude: pos.coords.longitude
               }
-              if (haversine(checkpoints[this.state.currentCheckpoint].latlng, curPosition, {threshold: 15, unit: 'meter'})) {
+
+
+              if (haversine(this.state.markers[this.state.currentCheckpoint].latlng, curPosition, {threshold: 15, unit: 'meter'})) {
                 alert('checkpoint reached');
+
                 this.setState({
-                  currentCheckpoint: this.state.currentCheckpoint + 1
+                  currentSong: this.state.masterPlaylist[this.state.currentCheckpoint],
+                  currentCheckpoint: this.state.currentCheckpoint === this.state.markers.length ? 0 : this.state.currentCheckpoint + 1
+                }, () => {
+                  SpotifyAuth.queueURI(this.state.currentSong,(error)=>{console.log(error);});
+                  if (this.state.currentCheckpoint === this.state.markers.length) {
+                    clearInterval(watchID);
+                    alert('Nice job. You\'ve finished your run!');
+                  }
                 })
               }
-              if (this.state.currentCheckpoint === checkpoints.length) {
-                navigator.geolocation.clearWatch(id);
-              }
-              //if inital position is the same as ending position cancel watchID
+
            },
            (error) => alert(error.message),
            { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
         );
       }, 1000);
   }
-
-  toggleStopwatch() {
-    this.setState({stopwatchStart: !this.state.stopwatchStart, stopwatchReset: false});
-  }
-
-  resetStopwatch() {
-    this.setState({stopwatchStart: false, stopwatchReset: true});
-  }
-
-  getFormattedTime(time) {
-      this.currentTime = time;
-  };
-
-  // saveTime(time) {
-  //   console.log('time: ', time)
-  // }
 
   render() {
     return (
@@ -143,22 +125,19 @@ export default class Go extends Component {
               />
             ))}
           </MapView>
-          <View style={styles.stopwatch}>
-            <Stopwatch laps msecs start={this.state.stopwatchStart}
-              reset={this.state.stopwatchReset}
-              options={options}
-              getTime={this.getFormattedTime} />
-            <View style={{alignItems: 'center', justifyContent: 'center', marginLeft: 20, flexDirection: 'row'}}>
-              <TouchableHighlight onPress={this.toggleStopwatch}>
-                <Text style={{padding: 10, fontWeight: 'bold', fontSize: 20}}>{!this.state.stopwatchStart ? "Start" : "Stop"}</Text>
-              </TouchableHighlight>
-              <TouchableHighlight onPress={this.resetStopwatch}>
-                <Text style={{padding: 10, fontWeight: 'bold', fontSize: 20}}>Reset</Text>
-              </TouchableHighlight>
-            </View>
-          </View>
+
+          <TimePiece />
+
           <View style={styles.text}>
-{/*            <TouchableHighlight onPress={()=>{
+           <TouchableHighlight onPress={()=>{
+              SpotifyAuth.skipPrevious((error)=>{console.log(error);});
+            }
+            }>
+              <Text style={styles.normalText}>
+                Back
+              </Text>
+            </TouchableHighlight>
+            <TouchableHighlight onPress={()=>{
               SpotifyAuth.isPlaying((res)=>{SpotifyAuth.setIsPlaying(!res, (err)=>{console.log(err)});});
             }
             }>
@@ -166,7 +145,19 @@ export default class Go extends Component {
                 Play/Pause
               </Text>
             </TouchableHighlight>
-*/}
+            <TouchableHighlight onPress={()=>{
+              SpotifyAuth.skipNext((error)=>{console.log(error);});
+            }
+            }>
+              <Text style={styles.normalText}>
+                Forward
+              </Text>
+            </TouchableHighlight>
+          </View>
+          <View style={styles.text}>
+            <Text>
+              currentTrackURI: {JSON.stringify(this.state.currentSong)}
+            </Text>
           </View>
 
       </View>
@@ -174,22 +165,6 @@ export default class Go extends Component {
     );
   }
 }
-
-const handleTimerComplete = () => alert("custom completion function");
-
-const options = {
-  container: {
-    backgroundColor: '#000',
-    padding: 5,
-    borderRadius: 5,
-    width: 220,
-  },
-  text: {
-    fontSize: 30,
-    color: '#FFF',
-    marginLeft: 7,
-  }
-};
 
 const styles = StyleSheet.create({
   container: {
@@ -203,15 +178,11 @@ const styles = StyleSheet.create({
     flex: 12,
     backgroundColor: 'blue'
   },
-  stopwatch: {
-    justifyContent: 'center',
-    flex: 1,
-    flexDirection: 'row',
-    padding: 10,
-    // margin: 20
-  },
   text: {
-    flex: 2,
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'row',
   },
   button: {
     justifyContent: 'center',
@@ -228,7 +199,8 @@ const styles = StyleSheet.create({
     fontSize: 20,
     textAlign: 'center',
     margin: 10,
-    color: 'white'
+    color: 'black',
+    borderColor: 'black',
   },
   btnText: {
     fontSize: 25,
