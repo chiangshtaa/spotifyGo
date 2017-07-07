@@ -235,9 +235,48 @@ const Sunset = {
   }
 };
 
+const sample = [
+    {
+      latlng: {
+        latitude: 37.33137,
+        longitude: -122.03078
+      },
+      title: 'checkpoint 1'
+    },
+    {
+      latlng: {
+        latitude: 37.331092,
+        longitude: -122.030757
+      },
+      title: 'checkpoint 2'
+    },
+    {
+      latlng: {
+        latitude: 37.330691,
+        longitude: -122.030618
+      },
+      title: 'checkpoint 3'
+    },
+    {
+      latlng: {
+        latitude: 37.330637,
+        longitude:  -122.029786
+      },
+      title: 'checkpoint 4'
+    },
+    {
+      latlng: {
+        latitude: 37.330537,
+        longitude: -122.028886
+      },
+      title: 'checkpoint 5'
+    }
+  ]
+
 module.exports = {
   easy: AppleCampus,
   medium: HackReactor,
-  difficult: Sunset
+  difficult: Sunset,
+  sample: sample
 };
 
