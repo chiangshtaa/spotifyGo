@@ -25,6 +25,7 @@ export default class courseSelect extends Component {
     super(props);
     this.state = {
       images: [
+        {key: require('../../assets/Sample.png'), selected: false, coordinates: courses.sample, description: {level: 'Sample', length: 760, run: 'Sample'}},
         {key: require('../../assets/AppleCampus.png'), selected: false, coordinates: courses.easy, description: {level: 'Easy', length: 0.57, run: 'Fruit Loop Run'}},
         {key: require('../../assets/HackReactor.png'), selected: false, coordinates: courses.medium, description: {level: 'Medium', length:2.89, run: 'Hack Reactor Sprint'}},
         {key: require('../../assets/Sunset.png'), selected: false, coordinates: courses.difficult, description: {level: 'Difficult', length: 8.01, run: 'Sunset Challenge'}}
