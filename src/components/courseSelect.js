@@ -35,8 +35,8 @@ export default class courseSelect extends Component {
       // next: {
       //   component: PlaylistSelect,
       //   title: 'Select Playlist',
-      //   passProps: { 
-      //     myProp: this.state.choice 
+      //   passProps: {
+      //     myProp: this.state.choice
       //   }
       // }
     }
@@ -63,7 +63,7 @@ export default class courseSelect extends Component {
       next: {
         component: PlaylistSelect,
         title: 'Select Playlist',
-        passProps: { 
+        passProps: {
           myProp: level
         }
       }
