@@ -122,6 +122,7 @@ export default class Go extends Component {
   // }
 
   render() {
+    console.log('go', this.props);
     return (
       <View style={styles.container}>
           <MapView style={styles.map}

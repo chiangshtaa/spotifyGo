@@ -12,7 +12,18 @@ import {
 import Go from './go.js';
 
 export default class playlistSelect extends Component {
-
+  constructor(props) {
+    super(props);
+    this.state = {
+      next: {
+        component: Go,
+        title: 'Start Running',
+        passProps: {
+          myProp: this.props.myProp
+        }
+      }
+    }
+  }
   _handleBackPress() {
     this.props.navigator.pop();
   }
@@ -22,13 +33,8 @@ export default class playlistSelect extends Component {
   }
 
   render() {
-    const nextRoute = {
-      component: Go,
-      title: 'Start Running',
-      // passProps: { myProp: 'bar' }
-    };
     return(
-      <TouchableHighlight onPress={() => this._handleNextPress(nextRoute)}>
+      <TouchableHighlight onPress={() => this._handleNextPress(this.state.next)}>
         <Text style={{marginTop: 200, alignSelf: 'center'}}>
           go to Go page!
         </Text>
