@@ -35,8 +35,8 @@ export default class courseSelect extends Component {
       // next: {
       //   component: PlaylistSelect,
       //   title: 'Select Playlist',
-      //   passProps: {
-      //     myProp: this.state.choice
+      //   passProps: { 
+      //     myProp: this.state.choice 
       //   }
       // }
     }
@@ -74,16 +74,16 @@ export default class courseSelect extends Component {
 
   render() {
     return (
-      <View style={{flex: 1, marginBottom: 50}}>
+      <View style={{flex: 1}}>
         <Text style={styles.normalText}>
           Select a route!
         </Text>
-        <Swiper showsButtons={true}>
+        <Swiper showsButtons={false} style={{marginTop: 50}}>
           {this.state.images.map((image, index) => {
             return (
               <View >
                 <TouchableHighlight onPress={() => this._handleSelect(index)}>
-                  <Image source={image.key} key={index} style={image.selected ? styles.border : {borderRadius: 10, marginTop: 250, alignSelf: 'center'}} />
+                  <Image source={image.key} key={index} style={image.selected ? styles.border : {borderRadius: 10, alignSelf: 'center'}} />
                 </TouchableHighlight>
                 <Text style={{marginTop: 10, alignSelf: 'center'}}>
                   {`${image.description.run}`}
@@ -94,9 +94,9 @@ export default class courseSelect extends Component {
                 <Text style={{alignSelf: 'center'}}>
                   {`Length: ${image.description.length} miles`}
                 </Text>
-                <Text style={{backgroundColor: 'red', color: 'white', alignSelf: 'center', marginTop: 20}}>
+{/*                <Text style={{backgroundColor: 'red', color: 'white', alignSelf: 'center', marginTop: 20}}>
                   Select a route!
-                </Text>
+                </Text>*/}
               </View>
               )
           })}
@@ -161,6 +161,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     textAlign: 'center',
     margin: 10,
+    marginTop: 100,
     color: 'white',
     backgroundColor: 'red'
   },
@@ -175,7 +176,6 @@ const styles = StyleSheet.create({
     borderColor: 'green',
     borderRadius: 10,
     borderWidth: 10,
-    marginTop: 250,
     alignSelf: 'center'
   }
 
