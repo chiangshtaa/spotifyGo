@@ -19,7 +19,7 @@ const SpotifyAuth = NativeModules.SpotifyAuth;
 const checkpoints = [
     {
       latlng: {
-        latitude: 37.33137,
+        latitude: 37.33177,
         longitude: -122.03078
       },
       title: 'checkpoint 1'
@@ -79,8 +79,6 @@ export default class Go extends Component {
                 latitude: pos.coords.latitude,
                 longitude: pos.coords.longitude
               }
-
-
               if (haversine(this.state.markers[this.state.currentCheckpoint].latlng, curPosition, {threshold: 15, unit: 'meter'})) {
                 alert('checkpoint reached');
 
@@ -95,7 +93,6 @@ export default class Go extends Component {
                   }
                 })
               }
-
            },
            (error) => alert(error.message),
            { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
@@ -104,6 +101,7 @@ export default class Go extends Component {
   }
 
   render() {
+    console.log('go', this.props);
     return (
       <View style={styles.container}>
           <MapView style={styles.map}
@@ -159,12 +157,27 @@ export default class Go extends Component {
               currentTrackURI: {JSON.stringify(this.state.currentSong)}
             </Text>
           </View>
-
       </View>
 
     );
   }
 }
+
+const handleTimerComplete = () => alert("custom completion function");
+
+const options = {
+  container: {
+    backgroundColor: '#000',
+    padding: 5,
+    borderRadius: 5,
+    width: 220,
+  },
+  text: {
+    fontSize: 30,
+    color: '#FFF',
+    marginLeft: 7,
+  }
+};
 
 const styles = StyleSheet.create({
   container: {
