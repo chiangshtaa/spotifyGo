@@ -10,7 +10,7 @@ import {
   View,
   ScrollView
 } from 'react-native';
-import { 
+import {
   Header,
 
 } from 'react-native-elements';
@@ -62,13 +62,15 @@ export default class courseSelect extends Component {
         component: PlaylistSelect,
         title: 'Select Playlist',
         passProps: {
-          myProp: level
+          myProp: level,
+          token: this.props.token
         }
       }
     }, () => this.props.navigator.push(this.state.next));
   }
 
   render() {
+    console.log('courseSelect token: ', this.props.token)
     return (
       <View style={{flex: 1, backgroundColor: '#dce8e6'}}>
         <Text style={styles.normalText}>
@@ -108,39 +110,6 @@ export default class courseSelect extends Component {
           <Image style={{height: 35, width: 35, marginBottom: 525}} source={require('../../assets/run.png')} />
           <Image style={{height: 35, width: 35, marginBottom: 525}} source={require('../../assets/run.png')} />
         </View>
-{/*        <View >
-          <Image source={require('../../assets/HackReactor.png')} style={{marginTop: 250, alignSelf: 'center'}}/>
-        </View>
-        <View >
-          <Image source={require('../../assets/AppleCampus.png')} style={{marginTop: 250, alignSelf: 'center'}} />
-        </View>
-        <View >
-          <Image source={require('../../assets/Sunset.png')} style={{marginTop: 250, alignSelf: 'center'}}/>
-        </View>*/}
-      {/*<ScrollView >
-              {this.state.images.map((image, index) => {
-                return (
-                  <View>
-                    <TouchableHighlight onPress={() => this._handleSelect(index)}>
-                      <Image key={index} style={image.selected ? styles.border : {borderRadius: 10, marginTop: 50, alignSelf: 'center'}} source={image.key}/>
-                    </TouchableHighlight>
-                    <Text style={{marginTop: 10, alignSelf: 'center'}}>
-                      {`${image.description.run}`}
-                    </Text>
-                    <Text style={{alignSelf: 'center'}}>
-                      {`Difficulty: ${image.description.level}`}
-                    </Text>
-                    <Text style={{alignSelf: 'center'}}>
-                      {`Length: ${image.description.length} miles`}
-                    </Text>
-                  </View>)
-              })}
-            </ScrollView>*/}
-{/*      <TouchableHighlight onPress={() => this._handleNextPress(nextRoute)}>
-        <Text style={styles.normalText}>
-          Select a route!
-        </Text>
-      </TouchableHighlight>*/}
       </View>
     );
   }

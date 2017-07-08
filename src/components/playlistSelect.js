@@ -24,7 +24,7 @@ export default class playlistSelect extends Component {
     }
     this.fetchPlaylist = this.fetchPlaylist.bind(this);
   }
-  
+
   componentWillMount() {
     this.fetchPlaylist();
   }
@@ -71,6 +71,7 @@ export default class playlistSelect extends Component {
   }
 
   render() {
+    console.log('playlistSelect page token: ', this.props.token);
     return(
       <View style={{flex: 1, backgroundColor: '#dce8e6'}}>
         <Swiper showsButtons={true} style={{marginTop: 50}}>

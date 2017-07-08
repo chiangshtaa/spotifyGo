@@ -65,14 +65,14 @@ const handleTimerComplete = () => alert("custom completion function");
 
 const options = {
   container: {
-    backgroundColor: '#000',
+    backgroundColor: 'white',
     padding: 5,
     borderRadius: 5,
     width: 220,
   },
   text: {
     fontSize: 30,
-    color: '#FFF',
+    color: 'black',
     marginLeft: 7,
   }
 };
