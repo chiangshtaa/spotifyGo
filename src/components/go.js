@@ -32,7 +32,6 @@ export default class Go extends Component {
   }
 
   componentDidMount() {
-    console.log('exporting constant: ', SpotifyAuth.firstDayOfTheWeek);
     watchID = setInterval(() => {
         navigator.geolocation.getCurrentPosition(
            (pos) => {
