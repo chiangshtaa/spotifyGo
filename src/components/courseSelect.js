@@ -74,7 +74,7 @@ export default class courseSelect extends Component {
         <Text style={styles.normalText}>
           Select a route!
         </Text>
-        <Swiper showsButtons={false}>
+        <Swiper showsButtons={true}>
           {this.state.images.map((image, index) => {
             return (
               <View key={index} style={{flex: 1}}>
