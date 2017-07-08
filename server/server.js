@@ -2,6 +2,7 @@ const express = require('express');
 const axios = require('axios');
 const bodyParser = require('body-parser');
 const Promise = require('bluebird');
+const db = require('../database/schema.js');
 
 const app = express();
 
