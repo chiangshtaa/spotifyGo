@@ -1,19 +1,16 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 import {
-  AppRegistry,
-  Image,
   StyleSheet,
   NativeModules,
   NavigatorIOS,
   Text,
   TouchableHighlight,
-  View,
-  ListView
+  View
 } from 'react-native';
+import axios from 'axios';
 import Go from './go.js';
-import Swiper from 'react-native-swiper';
 import PlaylistEntry from './playlistEntry.js';
+import Swiper from 'react-native-swiper';
 
 export default class playlistSelect extends Component {
   constructor(props) {
@@ -70,7 +67,7 @@ export default class playlistSelect extends Component {
             this.state.tracks.map((track, index) => {
               return (
                 <View key={index}>
-                  <Text style={{alignSelf: 'center', fontSize: 20, marginBottom: 50}}>
+                  <Text style={{alignSelf: 'center', fontSize: 20, marginBottom: 10}}>
                     {track.name}
                   </Text>
                   <TouchableHighlight onPress={() => this._handleSelect(index)}>
@@ -121,5 +118,3 @@ const styles = StyleSheet.create({
   },
 
 });
-
-AppRegistry.registerComponent('spotifyGo', () => playlistSelect);
