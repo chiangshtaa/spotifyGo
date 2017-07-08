@@ -23,7 +23,7 @@ const AppleCampus = {
     }
   ],
   initialRegion: {
-    latitude: 37.33197, 
+    latitude: 37.33197,
     longitude: -122.02971
   }
 };
@@ -60,7 +60,7 @@ const HackReactor = {
     },
     {
       latlng: {
-        latitude: 37.79727, 
+        latitude: 37.79727,
         longitude: -122.39709
       },
       title: 'checkpoint 5'
@@ -118,7 +118,7 @@ const Sunset = {
     },
      {
       latlng: {
-        latitude: 37.76454, 
+        latitude: 37.76454,
         longitude: -122.49987
       },
       title: 'checkpoint 2'
@@ -132,7 +132,7 @@ const Sunset = {
     },
      {
       latlng: {
-        latitude: 37.76528, 
+        latitude: 37.76528,
         longitude: -122.48047
       },
       title: 'checkpoint 4'
@@ -235,7 +235,8 @@ const Sunset = {
   }
 };
 
-const sample = [
+const sample = {
+  checkpoints: [
     {
       latlng: {
         latitude: 37.33137,
@@ -271,7 +272,12 @@ const sample = [
       },
       title: 'checkpoint 5'
     }
-  ]
+  ],
+  initialRegion: {
+    latitude: 37.33197,
+    longitude: -122.02971
+  }
+};
 
 module.exports = {
   easy: AppleCampus,

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import {
   AppRegistry,
-  Image,
   StyleSheet,
   NativeModules,
   NavigatorIOS,
@@ -16,46 +15,7 @@ import haversine from 'haversine';
 
 const SpotifyAuth = NativeModules.SpotifyAuth;
 
-const checkpoints = [
-    {
-      latlng: {
-        latitude: 37.33177,
-        longitude: -122.03078
-      },
-      title: 'checkpoint 1'
-    },
-    {
-      latlng: {
-        latitude: 37.331092,
-        longitude: -122.030757
-      },
-      title: 'checkpoint 2'
-    },
-    {
-      latlng: {
-        latitude: 37.330691,
-        longitude: -122.030618
-      },
-      title: 'checkpoint 3'
-    },
-    {
-      latlng: {
-        latitude: 37.330637,
-        longitude:  -122.029786
-      },
-      title: 'checkpoint 4'
-    },
-    {
-      latlng: {
-        latitude: 37.330537,
-        longitude: -122.028886
-      },
-      title: 'checkpoint 5'
-    }
-  ]
-
 const songList = ["spotify:track:2RttW7RAu5nOAfq6YFvApB","spotify:track:756CJtQRFSxEx9jV4P9hpA","spotify:track:7J9mBHG4J2eIfDAv5BehKA", "spotify:track:58s6EuEYJdlb0kO7awm3Vp", "spotify:track:2RttW7RAu5nOAfq6YFvApB", "spotify:track:1dNIEtp7AY3oDAKCGg2XkH"];
-
 
 
 export default class Go extends Component {
@@ -63,7 +23,7 @@ export default class Go extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      markers: checkpoints,
+      markers: this.props.myProp.checkpoints,
       currentCheckpoint: 0,
       currentPlaylist: ['spotify:track:72Q0FQQo32KJloivv5xge2'],
       masterPlaylist: songList,
@@ -72,7 +32,7 @@ export default class Go extends Component {
   }
 
   componentDidMount() {
-    let watchID = setInterval(() => {
+    watchID = setInterval(() => {
         navigator.geolocation.getCurrentPosition(
            (pos) => {
               let curPosition = {
@@ -106,14 +66,13 @@ export default class Go extends Component {
       <View style={styles.container}>
           <MapView style={styles.map}
             initialRegion={{
-              latitude: 37.78825,
-              longitude: -122.4324,
+              latitude: this.props.myProp.initialRegion.latitude,
+              longitude: this.props.myProp.initialRegion.longitude,
               latitudeDelta: 0.0922,
               longitudeDelta: 0.0421,
             }}
             showsUserLocation={true}
             followsUserLocation={true}
-            showsMyLocationButton={true}
           >
             {this.state.markers.map((marker, i) => (
               <MapView.Marker
@@ -152,38 +111,16 @@ export default class Go extends Component {
               </Text>
             </TouchableHighlight>
           </View>
-          <View style={styles.text}>
-            <Text>
-              currentTrackURI: {JSON.stringify(this.state.currentSong)}
-            </Text>
-          </View>
       </View>
 
     );
   }
 }
 
-const handleTimerComplete = () => alert("custom completion function");
-
-const options = {
-  container: {
-    backgroundColor: '#000',
-    padding: 5,
-    borderRadius: 5,
-    width: 220,
-  },
-  text: {
-    fontSize: 30,
-    color: '#FFF',
-    marginLeft: 7,
-  }
-};
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    // alignItems: 'center',
     backgroundColor: 'white',
     flexDirection: 'column'
   },
@@ -192,37 +129,17 @@ const styles = StyleSheet.create({
     backgroundColor: 'blue'
   },
   text: {
-    flex: 1,
+    flex: 2,
     alignItems: 'center',
     justifyContent: 'center',
     flexDirection: 'row',
-  },
-  button: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: 250,
-    height: 45,
-    borderRadius: 64
-  },
-  image: {
-    width: 250,
-    height: 50
   },
   normalText: {
     fontSize: 20,
     textAlign: 'center',
     margin: 10,
     color: 'black',
-    borderColor: 'black',
   },
-  btnText: {
-    fontSize: 25,
-    fontWeight: 'bold',
-    textAlign: 'center',
-    margin: 10,
-    color: 'white'
-  },
-
 });
 
-AppRegistry.registerComponent('spotifyGo', () => go);
+AppRegistry.registerComponent('spotifyGo', () => Go);

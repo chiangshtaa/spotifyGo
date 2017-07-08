@@ -37,14 +37,6 @@ export default class courseSelect extends Component {
         {key: require('../../assets/Sunset.png'), selected: false, coordinates: courses.difficult, description: {level: 'Hard', length: 8.01, run: 'Sunset Challenge'}}
       ],
       selected: null
-      // choice: null
-      // next: {
-      //   component: PlaylistSelect,
-      //   title: 'Select Playlist',
-      //   passProps: { 
-      //     myProp: this.state.choice 
-      //   }
-      // }
     }
   }
 
@@ -74,8 +66,6 @@ export default class courseSelect extends Component {
         }
       }
     }, () => this.props.navigator.push(this.state.next));
-
-    // this.props.navigator.push(this.state.next);
   }
 
   render() {
@@ -160,7 +150,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center',
+    // alignItems: 'center',
     backgroundColor: 'black'
   },
   button: {
