@@ -77,7 +77,7 @@ export default class courseSelect extends Component {
         <Swiper showsButtons={false}>
           {this.state.images.map((image, index) => {
             return (
-              <View style={{flex: 1}}>
+              <View key={index} style={{flex: 1}}>
                 <Text style={{marginBottom: 20, alignSelf: 'center', fontSize: 30, fontWeight: 'bold'}}>
                   {`${image.description.run}`}
                 </Text>
