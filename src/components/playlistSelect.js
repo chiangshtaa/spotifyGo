@@ -23,7 +23,8 @@ export default class playlistSelect extends Component {
           myProp: this.props.myProp
         }
       },
-      tracks: []
+      tracks: [],
+      selectedPlaylist: null
     }
     this.fetchPlaylist = this.fetchPlaylist.bind(this);
   }
@@ -56,7 +57,7 @@ export default class playlistSelect extends Component {
   }
 
   _handleSelect(index) {
-
+    this._handleNextPress(this.state.next);
   }
 
   render() {
@@ -70,7 +71,7 @@ export default class playlistSelect extends Component {
                   <Text style={{alignSelf: 'center', fontSize: 20, marginBottom: 10}}>
                     {track.name}
                   </Text>
-                  <TouchableHighlight onPress={() => this._handleSelect(index)}>
+                  <TouchableHighlight key={index} onPress={() => this._handleSelect(index)}>
                     <PlaylistEntry songs={track.songs} />
                   </TouchableHighlight>
                 </View>
