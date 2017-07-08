@@ -31,7 +31,7 @@ export default class playlistSelect extends Component {
 
   fetchPlaylist() {
     let that = this;
-    axios.get('http://localhost:3000/playlists')
+    axios.post('http://localhost:3000/playlists', {token: that.props.token})
       .then(response => {
         that.setState({
           tracks: response.data
