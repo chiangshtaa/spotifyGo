@@ -21,7 +21,7 @@ class logIn extends Component {
         <TouchableHighlight style={styles.button} onPress={
                   ()=>{
                     //Start Auth process
-                    SpotifyAuth.setClientID('5ba49a1c5e344e2bb5ddc424e380fd49','spotify-go-login://callback',['streaming'],
+                    SpotifyAuth.setClientID('5ba49a1c5e344e2bb5ddc424e380fd49','spotify-go-login://callback',['streaming', 'playlist-read-private'],
                       (obj) => {
                         if ('error' in obj) {
                           console.log('error: ', obj.error);
