@@ -8,12 +8,12 @@ const app = express();
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
-app.get('/playlists', (req, res) => {
-  console.log('got into server');
+app.post('/playlists', (req, res) => {
+  console.log('got into server: ', req.body);
   let options = {
     url: 'https://api.spotify.com/v1/me/playlists',
     headers: {
-      Authorization: 'Bearer ' + 'BQBEmMD4d_kFrAMbuXM3o_YqmyK-gDUDkGmMg_GAmAWAr6hO_QXOUZjPS0MaRvWWX8lpwJb9R-dhrSJ1tgd5ZugNep9ot-E-I64MQAiXKq9NfvDgYESq4LyjLy0uC_AJh2qYf5PJge0GgBUjCWEBZfg2kLEUpQam0y_G9R88sa3TOHEkGEVG3zYxKNJrC9mGGFJasIC2unKNz9Jn1Jpbv3l5NSFzVOcalKaKoDP-pOpj-ZlqOkQT10NJofjQtPyYzGewBbAVfie8zH3X7eGCyPPGFUl72ClwJW2OeJcUoAR7U_B2QpoM_5s67WAOZa9UvG72-dk'
+      Authorization: 'Bearer ' + req.body.token
     }
   };
   let result = [];
