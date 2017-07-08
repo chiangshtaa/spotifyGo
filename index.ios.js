@@ -21,12 +21,20 @@ class logIn extends Component {
         <TouchableHighlight style={styles.button} onPress={
                   ()=>{
                     //Start Auth process
-                    SpotifyAuth.setClientID('5ba49a1c5e344e2bb5ddc424e380fd49','spotify-go-login://callback',['streaming'],(error)=>{
-                      if(!error){
-                        this.props.navigator.replace({component: courseSelect, title: 'Courses '});
-                      } else {
-                        console.log('error:',error);
-                      }
+                    SpotifyAuth.setClientID('5ba49a1c5e344e2bb5ddc424e380fd49','spotify-go-login://callback',['streaming'],
+                      (obj) => {
+                        if ('error' in obj) {
+                          console.log('error: ', obj.error);
+                        } else {
+                          console.log('token: ', obj.token);
+                          this.props.navigator.replace({
+                            component: courseSelect,
+                            title: 'Courses ',
+                            passProps: {
+                              token: obj.token
+                            }
+                          });
+                        }
                     });
                   }
                 }>

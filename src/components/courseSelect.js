@@ -56,13 +56,15 @@ export default class courseSelect extends Component {
         component: PlaylistSelect,
         title: 'Select Playlist',
         passProps: {
-          myProp: level
+          myProp: level,
+          token: this.props.token
         }
       }
     }, () => this.props.navigator.push(this.state.next));
   }
 
   render() {
+    console.log('courseSelect token: ', this.props.token)
     return (
       <View style={{flex: 1}}>
         <Text style={styles.normalText}>

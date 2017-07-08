@@ -10,10 +10,12 @@
 		"haversine": "^1.0.2",
 		"react": "16.0.0-alpha.12",
 		"react-native": "0.45.1",
+		"react-native-elements": "^0.13.0",
+		"react-native-image-slider": "^1.1.5",
 		"react-native-maps": "^0.15.3",
 		"react-native-stopwatch-timer": "0.0.19",
-		"react-native-image-slider": "^1.1.5",
-		"react-native-swiper": "^1.5.4"
+		"react-native-swiper": "^1.5.4",
+		"react-native-vector-icons": "^4.2.0"
 	},
 	"devDependencies": {
 		"babel-jest": "20.0.3",

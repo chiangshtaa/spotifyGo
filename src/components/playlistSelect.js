@@ -19,7 +19,8 @@ export default class playlistSelect extends Component {
         component: Go,
         title: 'Start Running',
         passProps: {
-          myProp: this.props.myProp
+          myProp: this.props.myProp,
+          token: this.props.token
         }
       }
     }
@@ -33,6 +34,7 @@ export default class playlistSelect extends Component {
   }
 
   render() {
+    console.log('playlistSelect page token: ', this.props.token);
     return(
       <TouchableHighlight onPress={() => this._handleNextPress(this.state.next)}>
         <Text style={{marginTop: 200, alignSelf: 'center'}}>
