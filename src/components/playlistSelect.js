@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
 import {
+  Button,
   StyleSheet,
   NativeModules,
   NavigatorIOS,
   Text,
+  Icon,
   TouchableHighlight,
-  View
+  View,
+  ScrollView
 } from 'react-native';
 import axios from 'axios';
 import Go from './go.js';
@@ -57,6 +60,19 @@ export default class playlistSelect extends Component {
   }
 
   _handleSelect(index) {
+    this.setState({
+      selectedPlaylist: this.state.tracks[index].songs.map(song => {
+        return song.uri;
+      })
+    }, () => {
+      let passedProps = this.state.next;
+      passedProps.passProps.songs = this.state.selectedPlaylist;
+      this.setState({
+        next: passProps
+      }, () => {
+        console.log('this.state: ', this.state.next);
+      })
+    });
     this._handleNextPress(this.state.next);
   }
 
@@ -67,14 +83,14 @@ export default class playlistSelect extends Component {
           {
             this.state.tracks.map((track, index) => {
               return (
-                <View key={index}>
+                <ScrollView key={index}>
                   <Text style={{alignSelf: 'center', fontSize: 20, marginBottom: 10}}>
                     {track.name}
                   </Text>
                   <TouchableHighlight key={index} onPress={() => this._handleSelect(index)}>
                     <PlaylistEntry songs={track.songs} />
                   </TouchableHighlight>
-                </View>
+                </ScrollView>
               )
             })
           }
@@ -117,5 +133,9 @@ const styles = StyleSheet.create({
     margin: 10,
     color: 'white'
   },
-
+  actionButtonIcon: {
+    fontSize: 20,
+    height: 22,
+    color: 'white',
+  }
 });
