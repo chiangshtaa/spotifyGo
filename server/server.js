@@ -13,7 +13,7 @@ app.get('/playlists', (req, res) => {
   let options = {
     url: 'https://api.spotify.com/v1/me/playlists',
     headers: {
-      Authorization: 'Bearer ' + 'BQDbiqzu8O2_wZJ7jPWnBrdsVXTaICGRNOWApuyc_f7xkJ9-wE6XQW3_hth9yboDMlLWuHEl2gMTsa1W0S9XR4yntlR5mkE9TpSli5Ppwu4atmANS46RlxjRwDFCmqILBvr5ALtqv6zatLW7-2SOdcnv5cyqlwj3VisSlBxJdI7QQ4xjRSGDOWkaK4tz44WbbGGT2mN7e5yP97XX8crPg0IJ5KMJviIkVZ676DjxX3vFgq71G9hv2IGJoWhIHQvKeWXndvkrDDOf6oo6Pu2vfyX0u5WrGq2wsjrofKuvxqnPmvr14jS9XUWc9A3wHVLrSmadu7w'
+      Authorization: 'Bearer ' + 'BQBEmMD4d_kFrAMbuXM3o_YqmyK-gDUDkGmMg_GAmAWAr6hO_QXOUZjPS0MaRvWWX8lpwJb9R-dhrSJ1tgd5ZugNep9ot-E-I64MQAiXKq9NfvDgYESq4LyjLy0uC_AJh2qYf5PJge0GgBUjCWEBZfg2kLEUpQam0y_G9R88sa3TOHEkGEVG3zYxKNJrC9mGGFJasIC2unKNz9Jn1Jpbv3l5NSFzVOcalKaKoDP-pOpj-ZlqOkQT10NJofjQtPyYzGewBbAVfie8zH3X7eGCyPPGFUl72ClwJW2OeJcUoAR7U_B2QpoM_5s67WAOZa9UvG72-dk'
     }
   };
   let result = [];

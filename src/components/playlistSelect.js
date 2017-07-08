@@ -19,15 +19,8 @@ export default class playlistSelect extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      next: {
-        component: Go,
-        title: 'Start Running',
-        passProps: {
-          myProp: this.props.myProp
-        }
-      },
-      tracks: [],
-      selectedPlaylist: null
+      tracks: []
+      // selectedPlaylist: null
     }
     this.fetchPlaylist = this.fetchPlaylist.bind(this);
   }
@@ -60,20 +53,21 @@ export default class playlistSelect extends Component {
   }
 
   _handleSelect(index) {
+    let selected = this.state.tracks[index].songs.map(song => {
+      return song.uri;
+    })
     this.setState({
-      selectedPlaylist: this.state.tracks[index].songs.map(song => {
-        return song.uri;
-      })
-    }, () => {
-      let passedProps = this.state.next;
-      passedProps.passProps.songs = this.state.selectedPlaylist;
-      this.setState({
-        next: passProps
-      }, () => {
-        console.log('this.state: ', this.state.next);
-      })
+      next: {
+        component: Go,
+        title: 'Start Running',
+        passProps: {
+          myProp: this.props.myProp,
+          selectedPlaylist: selected
+        }
+      }
+    },()=> {
+      this._handleNextPress(this.state.next);
     });
-    this._handleNextPress(this.state.next);
   }
 
   render() {
