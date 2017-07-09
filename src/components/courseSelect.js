@@ -8,7 +8,8 @@ import {
   Text,
   TouchableHighlight,
   View,
-  ScrollView
+  ScrollView,
+  Button
 } from 'react-native';
 import {
   Header,
@@ -21,9 +22,12 @@ import ImageSlider from 'react-native-image-slider';
 
 import Swiper from 'react-native-swiper';
 
-var courses = require('../Coordinates/mapData.js');
+const courses = require('../Coordinates/mapData.js');
 
 const SpotifyAuth = NativeModules.SpotifyAuth;
+
+const db = require('../../database/schema.js');
+
 
 
 export default class courseSelect extends Component {
@@ -54,6 +58,7 @@ export default class courseSelect extends Component {
     }
     this.state.images[index].selected = true;
     let level = this.state.images[index].coordinates;
+    let courseName = this.state.images[index].description.level;
     this.setState({
       images: this.state.images,
       selected: index,
@@ -63,14 +68,16 @@ export default class courseSelect extends Component {
         title: 'Select Playlist',
         passProps: {
           myProp: level,
-          token: this.props.token
+          token: this.props.token,
+          username: this.props.username,
+          course: courseName
         }
       }
     }, () => this.props.navigator.push(this.state.next));
   }
 
   render() {
-    console.log('courseSelect token: ', this.props.token)
+    console.log('courseSelect username: ', this.props.username);
     return (
       <View style={{flex: 1, backgroundColor: '#dce8e6'}}>
         <Text style={styles.normalText}>
@@ -89,14 +96,16 @@ export default class courseSelect extends Component {
                 <Text style={{alignSelf: 'center', fontSize: 20, marginTop: 10}}>
                   {`Difficulty: ${image.description.level}`}
                 </Text>
-                <Text style={{alignSelf: 'center'}}>
-                  {`Length: ${image.description.length} miles`}
-                </Text>
+                <TouchableHighlight onPress={() => {alert(JSON.stringify(db.objects('RunLog')))}} style={{alignSelf: 'center'}}>
+                  <Text>{`Length: ${image.description.length} miles`}</Text>
+                </TouchableHighlight>
               </View>
               )
           })}
         </Swiper>
-        <View style={{flex: 1, flexDirection: 'row', alignItems: 'center'}}>
+        <Text  style={{marginBottom: 525}}>hello</Text>
+        <Button style={{marginBottom: 525}} onPress={() => {alert(JSON.stringify(db.objects('RunLog')))}} title="query db" />
+        {/*<View style={{flex: 1, flexDirection: 'row', alignItems: 'center'}}>
           <Image style={{height: 35, width: 35, marginBottom: 525}} source={require('../../assets/run.png')} />
           <Image style={{height: 35, width: 35, marginBottom: 525}} source={require('../../assets/run.png')} />
           <Image style={{height: 35, width: 35, marginBottom: 525}} source={require('../../assets/run.png')} />
@@ -109,7 +118,7 @@ export default class courseSelect extends Component {
           <Image style={{height: 35, width: 35, marginBottom: 525}} source={require('../../assets/run.png')} />
           <Image style={{height: 35, width: 35, marginBottom: 525}} source={require('../../assets/run.png')} />
           <Image style={{height: 35, width: 35, marginBottom: 525}} source={require('../../assets/run.png')} />
-        </View>
+        </View>*/}
       </View>
     );
   }

@@ -25,9 +25,13 @@ export default class playlistSelect extends Component {
     this.fetchPlaylist = this.fetchPlaylist.bind(this);
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.fetchPlaylist();
   }
+
+  // componentWillUnmount() {
+  //   this.fetchPlaylist();
+  // }
 
   fetchPlaylist() {
     let that = this;
@@ -62,7 +66,9 @@ export default class playlistSelect extends Component {
         title: 'Start Running',
         passProps: {
           myProp: this.props.myProp,
-          selectedPlaylist: selected
+          course: this.props.course,
+          selectedPlaylist: selected,
+          username: this.props.username
         }
       }
     },()=> {
@@ -71,7 +77,7 @@ export default class playlistSelect extends Component {
   }
 
   render() {
-    console.log('playlistSelect page token: ', this.props.token);
+    console.log('playlistSelect page username: ', this.props.username);
     return(
       <View style={{flex: 1, backgroundColor: '#dce8e6'}}>
         <Swiper showsButtons={true} style={{marginTop: 50}}>

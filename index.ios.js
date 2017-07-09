@@ -11,6 +11,8 @@ import {
 } from 'react-native';
 import courseSelect from './src/components/courseSelect.js';
 
+const config = require('./server/config.js');
+
 
 const SpotifyAuth = NativeModules.SpotifyAuth;
 
@@ -21,17 +23,18 @@ class logIn extends Component {
         <TouchableHighlight style={styles.button} onPress={
                   ()=>{
                     //Start Auth process
-                    SpotifyAuth.setClientID('5ba49a1c5e344e2bb5ddc424e380fd49','spotify-go-login://callback',['streaming'],
-                      (obj) => {
-                        if ('error' in obj) {
-                          console.log('error: ', obj.error);
+                    SpotifyAuth.setClientID(config.clientID, config.callback, ['streaming', 'playlist-read-private'],
+                      (res) => {
+                        if ('error' in res) {
+                          console.log('error: ', res.error);
                         } else {
-                          console.log('token: ', obj.token);
+                          console.log('token: ', res.token);
                           this.props.navigator.replace({
                             component: courseSelect,
                             title: 'Courses ',
                             passProps: {
-                              token: obj.token
+                              token: res.token,
+                              username: res.username
                             }
                           });
                         }
