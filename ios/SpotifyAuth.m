@@ -38,7 +38,8 @@ RCT_EXPORT_METHOD(setClientID:(NSString *) clientID
    //Observer for successful login
    [center addObserverForName:@"loginRes" object:nil queue:nil usingBlock:^(NSNotification *notification)
    {
-     //if there is an error key in the userInfo dictionary send the error, otherwise null
+     //send the entire userInfo object, will check for errors on the React Native side.
+       //userInfo is decorated with token and username and error(if available)
      block(@[notification.userInfo]);
 
 
@@ -480,6 +481,7 @@ RCT_EXPORT_METHOD(performSearchWithQuery:(NSString *)searchQuery
         [self.player loginWithAccessToken:_session.accessToken];
 
         loginRes[@"token"] = _session.accessToken;
+        loginRes[@"username"] = _session.canonicalUsername;
         NSDictionary *immutableLoginRes = [loginRes copy];
         [center postNotificationName:@"loginRes" object:nil userInfo:immutableLoginRes];
         [center removeObserver:self name:@"loginRes" object:nil];

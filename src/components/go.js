@@ -25,9 +25,9 @@ export default class Go extends Component {
     this.state = {
       markers: this.props.myProp.checkpoints,
       currentCheckpoint: 0,
-      currentPlaylist: ['spotify:track:72Q0FQQo32KJloivv5xge2'],
-      masterPlaylist: songList,
-      currentSong: ''
+      masterPlaylist: this.props.selectedPlaylist,
+      currentSong: '',
+      saveRun: false
     };
   }
 
@@ -49,6 +49,9 @@ export default class Go extends Component {
                   SpotifyAuth.queueURI(this.state.currentSong,(error)=>{console.log(error);});
                   if (this.state.currentCheckpoint === this.state.markers.length) {
                     clearInterval(watchID);
+                    this.setState({
+                      saveRun: true
+                    })
                     alert('Nice job. You\'ve finished your run!');
                   }
                 })
@@ -58,6 +61,12 @@ export default class Go extends Component {
            { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
         );
       }, 1000);
+  }
+
+  resetSaveState() {
+    this.setState({
+      saveRun: false
+    })
   }
 
   render() {
@@ -83,17 +92,9 @@ export default class Go extends Component {
             ))}
           </MapView>
 
-          <TimePiece />
+          <TimePiece course={this.props.course} username={this.props.username} saveRun={this.state.saveRun} resetSaveState={this.resetSaveState}/>
 
           <View style={styles.text}>
-           <TouchableHighlight onPress={()=>{
-              SpotifyAuth.skipPrevious((error)=>{console.log(error);});
-            }
-            }>
-              <Text style={styles.normalText}>
-                Back
-              </Text>
-            </TouchableHighlight>
             <TouchableHighlight onPress={()=>{
               SpotifyAuth.isPlaying((res)=>{SpotifyAuth.setIsPlaying(!res, (err)=>{console.log(err)});});
             }
@@ -107,7 +108,7 @@ export default class Go extends Component {
             }
             }>
               <Text style={styles.normalText}>
-                Forward
+                Next
               </Text>
             </TouchableHighlight>
           </View>
