@@ -24,6 +24,7 @@
 		140ED2AC1D01E1AD002B40FF /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
 		146834051AC3E58100842450 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
 		1AD9970078094FD9B875329A /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 27C7B7FA8BF944EAB306F144 /* Zocial.ttf */; };
+		271E1DAA0D3F45D4B5F3D9B7 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 4102A8634E4F4A488E774110 /* libz.tbd */; };
 		2C63D3A5D5BB48F18597734F /* MaterialCommunityIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 88640BF1161241CF94323495 /* MaterialCommunityIcons.ttf */; };
 		2D02E4BC1E0B4A80006451C7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		2D02E4BD1E0B4A84006451C7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
@@ -37,6 +38,7 @@
 		2D02E4C81E0B4AEC006451C7 /* libRCTWebSocket-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DAD3E991DF850E9000B6D8A /* libRCTWebSocket-tvOS.a */; };
 		2D02E4C91E0B4AEC006451C7 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DAD3EA31DF850E9000B6D8A /* libReact.a */; };
 		2DCD954D1E0B4F2C00145EB5 /* spotifyGoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* spotifyGoTests.m */; };
+		30B06318EFEF43F39408211C /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 0EACB5D922854A51A67AA969 /* libc++.tbd */; };
 		451FB9077B074EB29BEC8F09 /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 54565E7C7E7F490A9521F8E6 /* SimpleLineIcons.ttf */; };
 		4D8199BD1F0B931500D6C01B /* Spotify.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D8199BC1F0B931500D6C01B /* Spotify.framework */; };
 		4D8199C31F0B941200D6C01B /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D8199C21F0B941100D6C01B /* AVFoundation.framework */; };
@@ -249,6 +251,13 @@
 			remoteGlobalIDString = 139D7E881E25C6D100323FB7;
 			remoteInfo = "double-conversion";
 		};
+		4DF9AE031F11944600D487BD /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 6FDBF04F54C0417A952A5051 /* RealmReact.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = F60690131CA2766F0003FB26;
+			remoteInfo = RealmReact;
+		};
 		5C6DE44B1F10354800339CB0 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 59C10FB94D824464A34343E2 /* RNVectorIcons.xcodeproj */;
@@ -313,6 +322,7 @@
 		2D02E4901E0B4A5D006451C7 /* spotifyGo-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "spotifyGo-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		315C90296B554932862A168D /* RealmReact.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RealmReact.xcodeproj; path = "../node_modules/realm/react-native/ios/RealmReact.xcodeproj"; sourceTree = "<group>"; };
 		3ADD3D2113FC44DA9439CBA6 /* MaterialIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
+		4102A8634E4F4A488E774110 /* libz.tbd */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		4D8199BC1F0B931500D6C01B /* Spotify.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Spotify.framework; sourceTree = "<group>"; };
 		4D8199C21F0B941100D6C01B /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		4D8199C41F0B942100D6C01B /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
@@ -336,6 +346,7 @@
 		9A899A5EC6CE43D6AA082041 /* libz.tbd */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		ABC6177F096D4C1C94899261 /* Ionicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Ionicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Ionicons.ttf"; sourceTree = "<group>"; };
 		E37457ECE8474D4CB4321A57 /* libAirMaps.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libAirMaps.a; sourceTree = "<group>"; };
+		EC7B68EA5B03425CAFD53B0C /* libRealmReact.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRealmReact.a; sourceTree = "<group>"; };
 		FC44B6F2B0F9437DAFAD9C9B /* Entypo.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Entypo.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Entypo.ttf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -535,6 +546,14 @@
 				9A899A5EC6CE43D6AA082041 /* libz.tbd */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		4DF9ADE41F11944500D487BD /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				4DF9AE041F11944600D487BD /* libRealmReact.a */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 		5A718EF8DC9641B5B9A7EA6D /* Resources */ = {
@@ -894,6 +913,7 @@
 			remoteRef = 19BC65AA1F119A3B00D848A0 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+
 		3DAD3E841DF850E9000B6D8A /* libRCTImage-tvOS.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -997,6 +1017,13 @@
 			fileType = archive.ar;
 			path = "libdouble-conversion.a";
 			remoteRef = 4D8199BA1F0B92DA00D6C01B /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		4DF9AE041F11944600D487BD /* libRealmReact.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRealmReact.a;
+			remoteRef = 4DF9AE031F11944600D487BD /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		5C6DE44C1F10354800339CB0 /* libRNVectorIcons.a */ = {
