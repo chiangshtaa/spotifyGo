@@ -14,6 +14,7 @@ import axios from 'axios';
 import Go from './go.js';
 import PlaylistEntry from './playlistEntry.js';
 import Swiper from 'react-native-swiper';
+const Promise = require('bluebird');
 
 export default class playlistSelect extends Component {
   constructor(props) {
@@ -31,10 +32,50 @@ export default class playlistSelect extends Component {
 
   fetchPlaylist() {
     let that = this;
-    axios.post('http://localhost:3000/playlists', {token: that.props.token})
+    let options = {
+      url: 'https://api.spotify.com/v1/me/playlists',
+      headers: {
+        Authorization: 'Bearer ' + that.props.token
+      }
+    };
+    let result = [];
+    axios(options)
       .then(response => {
+        response.data.items.map(playlist => {
+          let refactor = {
+            id: playlist.owner.id,
+            name: playlist.name,
+            url: playlist.uri,
+            songs: []
+          };
+          result.push(refactor);
+        });
+      })
+      .then(() => {
+        return Promise.map(result, (songs, i) => {
+          let options2 = {
+            headers: {
+              Accept: 'application/json',
+              Authorization: options.headers.Authorization
+            }
+          };
+          return axios.get('https://api.spotify.com/v1/users/' + songs.id + '/playlists/' + songs.url.substr(-22) + '/tracks', options2).then(response => {
+            response.data.items.map(tracks => {
+              let refactor2 = {
+                name: tracks.track.name,
+                image: tracks.track.album.images[2].url,
+                uri: tracks.track.uri
+              }
+              result[i].songs.push(refactor2);
+            })
+          }).catch(error => {
+            console.log(error);
+          })
+        });
+      })
+      .then(() => {
         that.setState({
-          tracks: response.data
+          tracks: result
         }, () => {
           console.log('this.state.tracks: ', this.state.tracks);
         });
