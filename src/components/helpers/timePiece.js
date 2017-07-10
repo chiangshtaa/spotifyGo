@@ -13,7 +13,7 @@ import {
 import formatTime from 'minutes-seconds-milliseconds';
 
 // const Realm = require('realm');
-const db = require('../../../database/schema.js');
+// const db = require('../../../database/schema.js');
 
 // let runLog = new Realm({
 //      schema: [{name: 'Log', properties: {username: 'string', time: 'int', course: 'string'}}]
@@ -36,15 +36,15 @@ export default class TimePiece extends Component {
     this.onResetPress = this.onResetPress.bind(this);
   }
 
-  componentWillUpdate(nextProps, nextState) {
-    if (nextProps.saveRun === true) {
-      db.write(() => {
-        alert('in componentWillUpdate');
-        db.create('RunLog', {username: this.props.username, time: this.state.timeElasped, course: this.props.course});
-      })
-    this.props.resetSaveState();
-    }
-  }
+  // componentWillUpdate(nextProps, nextState) {
+  //   if (nextProps.saveRun === true) {
+  //     db.write(() => {
+  //       alert('in componentWillUpdate');
+  //       db.create('RunLog', {username: this.props.username, time: this.state.timeElasped, course: this.props.course});
+  //     })
+  //   this.props.resetSaveState();
+  //   }
+  // }
 
   // pressing start/stop button
   onStartPress() {
@@ -88,7 +88,7 @@ export default class TimePiece extends Component {
   // create start/stop buttons
   startStopButton() {
     const style = this.state.timerRunning ? styles.stopButton : styles.startButton;
-    console.log('db: ' , db.objects('RunLog'));
+    // console.log('db: ' , db.objects('RunLog'));
     return (
       <TouchableHighlight
         onPress={this.onStartPress}
@@ -147,26 +147,26 @@ const styles = StyleSheet.create({
     flex: 5,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#dcdcdc',
+    backgroundColor: 'black',
+    marginTop: 5
   },
   time: {
     fontSize: 25,
     fontWeight: 'bold',
+    color: 'white'
   },
   buttonText: {
     fontWeight: 'bold',
     fontSize: 20,
+    color: 'white'
   },
   buttonWrapper: {
     flex: 3,
     flexDirection: 'row',
     justifyContent: 'space-around',
     alignItems: 'center',
-    // backgroundColor: '#dcdcdc',
   },
   button: {
-    // height: 100,
-    // width: 100,
     alignItems: 'center',
     justifyContent: 'center',
   },
