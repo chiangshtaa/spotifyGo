@@ -4,22 +4,57 @@ import {
   Image,
   StyleSheet,
   NativeModules,
-  NavigatorIOS,
-  Text,
   TouchableHighlight,
-  View
+  View,
+  Button
 } from 'react-native';
+import { StackNavigator } from 'react-navigation';
 import courseSelect from './src/components/courseSelect.js';
+import playlistSelect from './src/components/playlistSelect.js';
+import Go from './src/components/go.js'
+
+
+const config = require('./server/config.js');
 
 const config = require('./server/config.js');
 
 
 const SpotifyAuth = NativeModules.SpotifyAuth;
 
-class logIn extends Component {
+class LogIn extends React.Component {
+  static navigationOptions = {
+    title: 'Log In',
+  };
+
   render() {
+    const { navigate } = this.props.navigation;
     return (
       <View style={styles.container}>
+<<<<<<< HEAD
+          <TouchableHighlight style={styles.button} onPress={
+                    ()=>{
+                      //Start Auth process
+                      SpotifyAuth.setClientID(config.clientID, config.callback, ['streaming', 'playlist-read-private'],
+                        (res) => {
+                          if ('error' in res) {
+                            console.log('error: ', res.error);
+                          } else {
+                            console.log('token: ', res.token);
+                            navigate('courseSelect', { token: res.token,
+                              username: res.username
+                            })
+                          }
+                      });
+                    }
+                  }>
+            <Image resizeMode ={'contain'}
+             style={styles.image}
+             source={require('./assets/login-button-mobile.png')}
+            />
+          </TouchableHighlight>
+        </View>
+    )
+=======
         <TouchableHighlight style={styles.button} onPress={
                   ()=>{
                     //Start Auth process
@@ -48,71 +83,19 @@ class logIn extends Component {
         </TouchableHighlight>
       </View>
     );
+>>>>>>> b92b44bf097ce52358cbbeeda62d7efad1c402f4
   }
 }
 
-// class logInSuccess extends Component {
+const SpotifyGo = StackNavigator({
+  Login: { screen: LogIn },
+  courseSelect: { screen: courseSelect },
+  playlistSelect: { screen: playlistSelect },
+  Go: { screen: Go }
+});
 
-//   render() {
+AppRegistry.registerComponent('spotifyGo', () => SpotifyGo);
 
-//     return (
-//       <View style={styles.container}>
-//         <Text style={styles.normalText}>
-//           LogIn Success!
-//         </Text>
-//         <Text style={styles.normalText}>
-//           Some music should be playing now!
-//         </Text>
-//         <TouchableHighlight style={styles.button} onPress={()=>{
-//           SpotifyAuth.isPlaying((res)=>{SpotifyAuth.setIsPlaying(!res, (err)=>{console.log(err)});});
-//         }
-//         }>
-//           <Text style={styles.btnText}>
-//             Play/Pause
-//           </Text>
-//         </TouchableHighlight>
-//       </View>
-//       );
-
-//   }
-//   componentDidMount() {
-//       SpotifyAuth.playURIs(["spotify:track:6HxIUB3fLRS8W3LfYPE8tP", "spotify:track:58s6EuEYJdlb0kO7awm3Vp"], {trackIndex :0, startTime:0},(error)=>{console.log('error',error)});
-//   }
-// }
-//Used to navigate between other components
-class spotifyModule extends Component {
-  render(){
-    return (
-      <NavigatorIOS
-        initialRoute={{
-          component: logIn,
-          title: 'Log In'
-        }}
-        style={{flex: 1}}
-      />
-    );
-  }
-}
-
-// class spotifyGo extends Component {
-//   render() {
-//     return (
-//       <View style={styles.container}>
-//         <Text style={styles.normalText}>
-//           Welcome to React Native!
-//         </Text>
-//         <Text style={styles.normalText}>
-//           To get started, edit index.ios.js
-//         </Text>
-//         <Text style={styles.normalText}>
-//           Press Cmd+R to reload,{'\n'}
-//           Cmd+D or shake for dev menu
-//         </Text>
-//       </View>
-
-//     );
-//   }
-// }
 
 const styles = StyleSheet.create({
   container: {
@@ -132,12 +115,6 @@ const styles = StyleSheet.create({
     width: 250,
     height: 50
   },
-  normalText: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-    color: 'white'
-  },
   btnText: {
     fontSize: 25,
     fontWeight: 'bold',
@@ -148,4 +125,3 @@ const styles = StyleSheet.create({
 
 });
 
-AppRegistry.registerComponent('spotifyGo', () => spotifyModule);
