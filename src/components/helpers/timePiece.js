@@ -83,6 +83,13 @@ export default class TimePiece extends Component {
     this.setState({
       startTime: new Date(),
     });
+
+    this.interval = setInterval(() => {
+      this.setState({
+        timeElasped: new Date() - this.state.startTime,
+        timerRunning: true,
+      });
+    }, 30);
   }
 
   // create start/stop buttons

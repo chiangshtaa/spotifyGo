@@ -100,7 +100,6 @@ export default class Go extends Component {
             ))}
           </MapView>
 
-
           <TimePiece course={this.props.course} username={this.props.username} saveRun={this.state.saveRun} resetSaveState={this.resetSaveState}/>
 
           <View style={styles.text}>
