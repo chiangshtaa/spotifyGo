@@ -30,7 +30,6 @@ class LogIn extends React.Component {
     const { navigate } = this.props.navigation;
     return (
       <View style={styles.container}>
-<<<<<<< HEAD
           <TouchableHighlight style={styles.button} onPress={
                     ()=>{
                       //Start Auth process
@@ -54,36 +53,6 @@ class LogIn extends React.Component {
           </TouchableHighlight>
         </View>
     )
-=======
-        <TouchableHighlight style={styles.button} onPress={
-                  ()=>{
-                    //Start Auth process
-                    SpotifyAuth.setClientID(config.clientID, config.callback, ['streaming', 'playlist-read-private'],
-                      (res) => {
-                        if ('error' in res) {
-                          console.log('error: ', res.error);
-                        } else {
-                          console.log('token: ', res.token);
-                          this.props.navigator.replace({
-                            component: courseSelect,
-                            title: 'Courses ',
-                            passProps: {
-                              token: res.token,
-                              username: res.username
-                            }
-                          });
-                        }
-                    });
-                  }
-                }>
-          <Image resizeMode ={'contain'}
-           style={styles.image}
-           source={require('./assets/login-button-mobile.png')}
-          />
-        </TouchableHighlight>
-      </View>
-    );
->>>>>>> b92b44bf097ce52358cbbeeda62d7efad1c402f4
   }
 }
 
