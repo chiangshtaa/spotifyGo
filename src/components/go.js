@@ -6,9 +6,12 @@ import {
   NavigatorIOS,
   Text,
   TouchableHighlight,
-  View
+  View,
+  Image
 } from 'react-native';
+import { Button } from 'native-base';
 import TimePiece from './helpers/timePiece.js';
+import { StackNavigation } from 'react-navigation';
 
 import MapView from 'react-native-maps';
 import haversine from 'haversine';
@@ -19,15 +22,19 @@ const songList = ["spotify:track:2RttW7RAu5nOAfq6YFvApB","spotify:track:756CJtQR
 
 
 export default class Go extends Component {
+  static navigationOptions = {
+    title: 'Start Running',
+  }
 
   constructor(props) {
     super(props);
+    const { params } = this.props.navigation.state;
     this.state = {
-      markers: this.props.myProp.checkpoints,
+      markers: params.course.checkpoints,
       currentCheckpoint: 0,
-      currentPlaylist: ['spotify:track:72Q0FQQo32KJloivv5xge2'],
-      masterPlaylist: songList,
-      currentSong: ''
+      masterPlaylist: params.songs,
+      currentSong: '',
+      saveRun: false
     };
   }
 
@@ -49,6 +56,9 @@ export default class Go extends Component {
                   SpotifyAuth.queueURI(this.state.currentSong,(error)=>{console.log(error);});
                   if (this.state.currentCheckpoint === this.state.markers.length) {
                     clearInterval(watchID);
+                    this.setState({
+                      saveRun: true
+                    })
                     alert('Nice job. You\'ve finished your run!');
                   }
                 })
@@ -60,14 +70,21 @@ export default class Go extends Component {
       }, 1000);
   }
 
+  resetSaveState() {
+    this.setState({
+      saveRun: false
+    })
+  }
+
   render() {
+    const { params } = this.props.navigation.state;
     console.log('go', this.props);
     return (
       <View style={styles.container}>
           <MapView style={styles.map}
             initialRegion={{
-              latitude: this.props.myProp.initialRegion.latitude,
-              longitude: this.props.myProp.initialRegion.longitude,
+              latitude: params.course.initialRegion.latitude,
+              longitude: params.course.initialRegion.longitude,
               latitudeDelta: 0.0922,
               longitudeDelta: 0.0421,
             }}
@@ -83,33 +100,23 @@ export default class Go extends Component {
             ))}
           </MapView>
 
-          <TimePiece />
+          <TimePiece course={this.props.course} username={this.props.username} saveRun={this.state.saveRun} resetSaveState={this.resetSaveState}/>
 
           <View style={styles.text}>
-           <TouchableHighlight onPress={()=>{
-              SpotifyAuth.skipPrevious((error)=>{console.log(error);});
-            }
-            }>
-              <Text style={styles.normalText}>
-                Back
-              </Text>
-            </TouchableHighlight>
-            <TouchableHighlight onPress={()=>{
+            <Button style={{paddingTop: 40}} transparent onPress={()=>{
               SpotifyAuth.isPlaying((res)=>{SpotifyAuth.setIsPlaying(!res, (err)=>{console.log(err)});});
             }
             }>
-              <Text style={styles.normalText}>
-                Play/Pause
-              </Text>
-            </TouchableHighlight>
-            <TouchableHighlight onPress={()=>{
+              <Image style={{width: 50, height: 50}}source={require('../../assets/playPause.png')}>
+              </Image>
+            </Button>
+            <Button style={{paddingTop: 40}} transparent onPress={()=>{
               SpotifyAuth.skipNext((error)=>{console.log(error);});
             }
             }>
-              <Text style={styles.normalText}>
-                Forward
-              </Text>
-            </TouchableHighlight>
+              <Image style={{width: 50, height: 50}}source={require('../../assets/nextTrack.png')}>
+              </Image>
+            </Button>
           </View>
       </View>
 
@@ -121,24 +128,25 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    backgroundColor: 'white',
+    backgroundColor: 'black',
     flexDirection: 'column'
   },
   map: {
     flex: 12,
-    backgroundColor: 'blue'
+    backgroundColor: 'black'
   },
   text: {
     flex: 2,
     alignItems: 'center',
     justifyContent: 'center',
     flexDirection: 'row',
+    marginTop: 0,
   },
   normalText: {
     fontSize: 20,
     textAlign: 'center',
     margin: 10,
-    color: 'black',
+    color: 'white',
   },
 });
 
