@@ -54,3 +54,4 @@ fastlane/screenshots
 
 # database
 database/data
+server/config.js
