@@ -16,9 +16,6 @@ import Go from './src/components/go.js'
 
 const config = require('./server/config.js');
 
-const config = require('./server/config.js');
-
-
 const SpotifyAuth = NativeModules.SpotifyAuth;
 
 class LogIn extends React.Component {
