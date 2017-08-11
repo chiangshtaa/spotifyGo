@@ -9,89 +9,174 @@ import {
   TouchableHighlight,
   View
 } from 'react-native';
-import { Stopwatch, Timer } from 'react-native-stopwatch-timer';
+
+import formatTime from 'minutes-seconds-milliseconds';
+
+// const Realm = require('realm');
+// const db = require('../../../database/schema.js');
+
+// let runLog = new Realm({
+//      schema: [{name: 'Log', properties: {username: 'string', time: 'int', course: 'string'}}]
+//    });
+
+   // db.write(() => {
+   //   db.create('RunLog', {username: '124909928', time: 55835293, course: 'sample'});
+   // });
 
 
 export default class TimePiece extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      stopwatchStart: false,
-      totalDuration: 90000,
-      stopwatchReset: false
+      timeElasped: null,
+      timerRunning: false,
+      startTime: null,
     };
-
-    this.toggleStopwatch = this.toggleStopwatch.bind(this);
-    this.resetStopwatch = this.resetStopwatch.bind(this);
+    this.onStartPress = this.onStartPress.bind(this);
+    this.onResetPress = this.onResetPress.bind(this);
   }
 
-  toggleStopwatch() {
-    this.setState({stopwatchStart: !this.state.stopwatchStart, stopwatchReset: false}, () => {
-      // if (this.state.stopwatchStart) {
-      //   SpotifyAuth.playURIs(this.state.masterPlaylist, {trackIndex :0, startTime:0},(error)=>{console.log('error',error)});
+  // componentWillUpdate(nextProps, nextState) {
+  //   if (nextProps.saveRun === true) {
+  //     db.write(() => {
+  //       alert('in componentWillUpdate');
+  //       db.create('RunLog', {username: this.props.username, time: this.state.timeElasped, course: this.props.course});
+  //     })
+  //   this.props.resetSaveState();
+  //   }
+  // }
+
+  // pressing start/stop button
+  onStartPress() {
+    // check if clock is running, then stop
+    if (this.state.timerRunning) {
+      clearInterval(this.interval);
+      this.setState({
+        timerRunning: false,
+      });
+      return;
+    }
+
+    this.setState({
+      startTime: new Date(),
     });
+
+    this.interval = setInterval(() => {
+      this.setState({
+        timeElasped: new Date() - this.state.startTime,
+        timerRunning: true,
+      });
+    }, 30);
   }
 
-  resetStopwatch() {
-    this.setState({stopwatchStart: false, stopwatchReset: true});
+  // pressing restart button
+  onResetPress() {
+    // Reset timer
+    if (!this.state.timerRunning) {
+      this.setState({
+        timeElasped: new Date(),
+      });
+      return;
+    }
+
+
+    this.setState({
+      startTime: new Date(),
+    });
+
+    this.interval = setInterval(() => {
+      this.setState({
+        timeElasped: new Date() - this.state.startTime,
+        timerRunning: true,
+      });
+    }, 30);
   }
 
-  getFormattedTime(time) {
-      this.currentTime = time;
-  };
+  // create start/stop buttons
+  startStopButton() {
+    const style = this.state.timerRunning ? styles.stopButton : styles.startButton;
+    // console.log('db: ' , db.objects('RunLog'));
+    return (
+      <TouchableHighlight
+        onPress={this.onStartPress}
+        underlayColor="#e6e6fa"
+        style={[styles.button, style]}
+      >
+        <Text style={styles.buttonText}>
+          {this.state.timerRunning ? 'Stop' : 'Start'}
+        </Text>
+      </TouchableHighlight>
+    );
+  }
+
+  // create the reset button
+  resetButton() {
+    return (
+      <TouchableHighlight
+        onPress={this.onResetPress}
+        underlayColor="#e6e6fa"
+        style={styles.button}
+      >
+        <Text style={styles.buttonText}>
+          Reset
+        </Text>
+      </TouchableHighlight>
+    );
+  }
 
   render() {
     return (
-      <View style={styles.stopwatch}>
-        <Stopwatch laps msecs start={this.state.stopwatchStart}
-          reset={this.state.stopwatchReset}
-          options={options}
-          getTime={this.getFormattedTime}
-        />
-        <View style={{alignItems: 'center', justifyContent: 'center', marginLeft: 20, flexDirection: 'row'}}>
-          <TouchableHighlight onPress={this.toggleStopwatch}>
-            <Text style={{padding: 10, fontWeight: 'bold', fontSize: 20}}>{!this.state.stopwatchStart ? "Start" : "Stop"}</Text>
-          </TouchableHighlight>
-          <TouchableHighlight onPress={this.resetStopwatch}>
-            <Text style={{padding: 10, fontWeight: 'bold', fontSize: 20}}>Reset</Text>
-          </TouchableHighlight>
+      <View style={styles.container}>
+        <View style={styles.header}>
+          <View style={styles.timerWrapper}>
+            <Text style={styles.time}>{formatTime(this.state.timeElasped)}</Text>
+          </View>
+
+          <View style={styles.buttonWrapper}>
+            {this.startStopButton()}
+            {this.resetButton()}
+          </View>
         </View>
       </View>
     );
   }
 }
 
-const handleTimerComplete = () => alert("custom completion function");
-
-const options = {
-  container: {
-    backgroundColor: 'white',
-    padding: 5,
-    borderRadius: 5,
-    width: 220,
-  },
-  text: {
-    fontSize: 30,
-    color: 'black',
-    marginLeft: 7,
-  }
-};
-
 const styles = StyleSheet.create({
-  stopwatch: {
-    justifyContent: 'center',
+  container: {
     flex: 1,
-    flexDirection: 'row',
-    padding: 10,
-    // margin: 20
+    alignItems: 'stretch',
   },
-  text: {
+  header: {
     flex: 1,
+  },
+  timerWrapper: {
+    flex: 5,
     alignItems: 'center',
     justifyContent: 'center',
+    backgroundColor: 'black',
+    marginTop: 5
+  },
+  time: {
+    fontSize: 25,
+    fontWeight: 'bold',
+    color: 'white'
+  },
+  buttonText: {
+    fontWeight: 'bold',
+    fontSize: 20,
+    color: 'white'
+  },
+  buttonWrapper: {
+    flex: 3,
     flexDirection: 'row',
-  }
-
+    justifyContent: 'space-around',
+    alignItems: 'center',
+  },
+  button: {
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
 });
 
 AppRegistry.registerComponent('spotifyGo', () => TimePiece);
